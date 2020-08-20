@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.matcha.mall.dao.UserImpInfoDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.matcha.mall.entity.UserImpInfoEntity" id="userImpInfoMap">
+        <result property="userImpId" column="user_imp_id"/>
+        <result property="tenantId" column="tenant_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="passwd" column="passwd"/>
+        <result property="salt" column="salt"/>
+        <result property="note" column="note"/>
+        <result property="delflag" column="delFlag"/>
+        <result property="createUserId" column="create_user_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="delUserId" column="del_user_id"/>
+    </resultMap>
+    <select id="findByTenantIdAndUserId" resultType="com.matcha.mall.entity.UserImpInfoEntity">
+        select user_id,tenantId,passwd,translate from user_impl_info where tenant_Id = #{tenantId} and user_id = #{userId}
+    </select>
+
+
+</mapper>
