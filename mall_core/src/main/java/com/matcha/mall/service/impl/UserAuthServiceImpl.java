@@ -11,10 +11,12 @@ import com.matcha.mall.entity.UserImpInfoEntity;
 import com.matcha.mall.entity.UserInfoEntity;
 import com.matcha.mall.service.UserAuthService;
 import com.matcha.mall.service.UserInfoService;
-import org.apache.commons.lang.StringUtils;
+import com.matcha.mall.service.UserTokenService;
+import com.matcha.mall.tools.ToolCommons;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserAuthServiceImpl implements UserAuthService {
@@ -23,8 +25,10 @@ public class UserAuthServiceImpl implements UserAuthService {
     private UserInfoService userInfoService;
 
     @Autowired
-    private UserImpInfoDao userImpInfoDao;
+    private UserTokenService userTokenService;
 
+    @Autowired
+    private UserImpInfoDao userImpInfoDao;
 
     /**
      * 密码登录认证
@@ -34,37 +38,22 @@ public class UserAuthServiceImpl implements UserAuthService {
      * @return
      */
     @Override
+    @Transactional
     public UserInfoVO userAuthByPasswd(Long tenantId, UserAuthVO userAuth) {
         UserInfoEntity userInfoEntity = userInfoService.findByTenantByIdAndPhone(tenantId, userAuth.getUsername());
         CgAssertUtils.notNull(userInfoEntity, "未查询到用户信息");
         UserImpInfoEntity userImpInfoEntity = userImpInfoDao.findByTenantIdAndUserId(tenantId, userInfoEntity.getUserId());
         CgAssertUtils.notNull(userImpInfoEntity, "未获取到用户密码信息");
         // 进行比对
-        if (!generateMd5(userAuth.getPasswd(), userImpInfoEntity.getSalt()).equals(userImpInfoEntity.getPasswd())) {
+        if (!ToolCommons.matchPwd(userImpInfoEntity.getPasswd(), userAuth.getPasswd(), userImpInfoEntity.getSalt())) {
             throw new MallCustomException(ResultCode.FAILED).setMessage("用户或密码不正确");
         }
+        userTokenService.generateUserToken(tenantId, userImpInfoEntity.getUserId());
         // todo 生成token
         UserInfoVO userInfoVO = new UserInfoVO();
         BeanUtils.copyProperties(userInfoEntity, userInfoVO);
         return userInfoVO;
     }
-
-    /**
-     * 生成md密码
-     *
-     * @param pwd
-     * @param slat
-     * @return
-     */
-    private String generateMd5(String pwd, String slat) {
-        if (StringUtils.isNotEmpty(slat)) {
-            slat = SecureUtil.md5(slat);
-            return SecureUtil.md5(SecureUtil.md5(pwd) + slat);
-        } else {
-            return SecureUtil.md5(SecureUtil.md5(pwd));
-        }
-    }
-
 
     public static void main(String[] args) {
         String slat = "test";
