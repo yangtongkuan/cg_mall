@@ -4,7 +4,7 @@
 <mapper namespace="com.matcha.mall.dao.SysTenantDao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.matcha.mall.common.entity.SysTenantEntity" id="sysTenantMap">
+    <resultMap type="com.matcha.mall.common.dto.SysTenantEntityDto" id="sysTenantMap">
         <result property="tenantId" column="tenant_id"/>
         <result property="tenantName" column="tenant_name"/>
         <result property="managerName" column="manager_name"/>

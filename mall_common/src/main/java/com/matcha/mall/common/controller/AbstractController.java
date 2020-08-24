@@ -8,8 +8,10 @@
 
 package com.matcha.mall.common.controller;
 
+import com.matcha.mall.common.dto.UserInfoDto;
 import com.matcha.mall.common.utils.SysTenantUtils;
-import com.matcha.mall.common.entity.SysTenantEntity;
+import com.matcha.mall.common.dto.SysTenantEntityDto;
+import com.matcha.mall.common.utils.UserAuthUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +26,18 @@ public abstract class AbstractController {
      *
      * @return
      */
-    protected SysTenantEntity getLocalTenant() {
+    protected SysTenantEntityDto getLocalTenant() {
         return SysTenantUtils.get();
     }
+
+    /**
+     * 获取当前的用户信息
+     *
+     * @return
+     */
+    protected UserInfoDto getLocalUser() {
+        return UserAuthUtils.get();
+    }
+
+
 }

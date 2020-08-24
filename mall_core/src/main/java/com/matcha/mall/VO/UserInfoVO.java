@@ -63,7 +63,7 @@ public class UserInfoVO implements Serializable {
     /**
      * 是否锁定
      */
-    private Integer lock;
+    private Integer isLock;
     /**
      * 创建时间
      */

@@ -1,11 +1,12 @@
 package com.matcha.mall.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
 /**
  * 用户信息
@@ -75,10 +76,11 @@ public class UserInfoEntity implements Serializable {
     /**
      * 是否锁定
      */
-    private Integer lock;
+    private Integer isLock;
     /**
      * 是否删除
      */
+    @TableLogic
     private Integer delFlag;
     /**
      * 删除者id

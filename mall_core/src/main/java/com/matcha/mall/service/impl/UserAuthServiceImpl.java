@@ -48,10 +48,12 @@ public class UserAuthServiceImpl implements UserAuthService {
         if (!ToolCommons.matchPwd(userImpInfoEntity.getPasswd(), userAuth.getPasswd(), userImpInfoEntity.getSalt())) {
             throw new MallCustomException(ResultCode.FAILED).setMessage("用户或密码不正确");
         }
-        userTokenService.generateUserToken(tenantId, userImpInfoEntity.getUserId());
+        String token = userTokenService.generateUserToken(tenantId, userImpInfoEntity.getUserId());
+        CgAssertUtils.notNull(token, "获取token失败");
         // todo 生成token
         UserInfoVO userInfoVO = new UserInfoVO();
         BeanUtils.copyProperties(userInfoEntity, userInfoVO);
+        userInfoVO.setToken(token);
         return userInfoVO;
     }
 

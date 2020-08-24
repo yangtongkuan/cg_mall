@@ -1,7 +1,7 @@
 package com.matcha.mall.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.matcha.mall.common.entity.SysTenantEntity;
+import com.matcha.mall.entity.SysTenantEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

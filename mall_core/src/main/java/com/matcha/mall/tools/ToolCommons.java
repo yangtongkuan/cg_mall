@@ -92,7 +92,9 @@ public class ToolCommons {
 
 
     public static void main(String[] args) {
-        System.out.println(generateToken(null, null));
+        System.out.println(generateSlat(1L, 1L));
+//        System.out.println(generateToken(null, null));
+        System.out.println(generatePwdMd5("123456", "20ea47e6217719dedbccd336a59aff96"));
     }
 
 

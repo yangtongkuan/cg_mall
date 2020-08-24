@@ -1,20 +1,20 @@
 package com.matcha.mall.common.utils;
 
-import com.matcha.mall.common.entity.SysTenantEntity;
+import com.matcha.mall.common.dto.SysTenantEntityDto;
 
 /**
  * 租户工具类
  */
 public class SysTenantUtils {
 
-    private static ThreadLocal<SysTenantEntity> tenantInfoThreadLocal = new ThreadLocal<>();
+    private static ThreadLocal<SysTenantEntityDto> tenantInfoThreadLocal = new ThreadLocal<>();
 
     /**
      * 设置当前请求的租户信息
      *
      * @param sysTenantInfo
      */
-    public static void setLocalTenant(SysTenantEntity sysTenantInfo) {
+    public static void setLocalTenant(SysTenantEntityDto sysTenantInfo) {
         tenantInfoThreadLocal.set(sysTenantInfo);
     }
 
@@ -28,7 +28,7 @@ public class SysTenantUtils {
     /**
      * 获取当前租户信息
      */
-    public static SysTenantEntity get() {
+    public static SysTenantEntityDto get() {
         return tenantInfoThreadLocal.get();
     }
 

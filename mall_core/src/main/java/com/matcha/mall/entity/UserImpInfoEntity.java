@@ -1,11 +1,12 @@
 package com.matcha.mall.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
 /**
  * 
@@ -47,7 +48,8 @@ public class UserImpInfoEntity implements Serializable {
 	/**
 	 * 是否已删除(1已删除，0未删除)
 	 */
-	private Integer delflag;
+	@TableLogic
+	private Integer delFlag;
 	/**
 	 * 创建者id
 	 */

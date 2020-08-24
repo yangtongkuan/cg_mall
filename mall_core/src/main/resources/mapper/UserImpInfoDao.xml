@@ -11,13 +11,13 @@
         <result property="passwd" column="passwd"/>
         <result property="salt" column="salt"/>
         <result property="note" column="note"/>
-        <result property="delflag" column="delFlag"/>
+        <result property="delFlag" column="del_flag"/>
         <result property="createUserId" column="create_user_id"/>
         <result property="createTime" column="create_time"/>
         <result property="delUserId" column="del_user_id"/>
     </resultMap>
     <select id="findByTenantIdAndUserId" resultType="com.matcha.mall.entity.UserImpInfoEntity">
-        select user_id,tenantId,passwd,translate from user_impl_info where tenant_Id = #{tenantId} and user_id = #{userId}
+        select user_id,tenant_id,passwd,salt from user_imp_info where tenant_id = #{tenantId} and user_id = #{userId}
     </select>
 
 

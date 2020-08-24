@@ -1,11 +1,12 @@
-package com.matcha.mall.common.entity;
+package com.matcha.mall.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
 /**
  * 系统租户
@@ -71,6 +72,7 @@ public class SysTenantEntity implements Serializable {
 	/**
 	 * 是否删除
 	 */
+	@TableLogic
 	private Integer delFlag;
 	/**
 	 * 删除者id

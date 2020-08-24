@@ -28,9 +28,9 @@ public class UserAuthController extends AbstractController {
      * @return
      */
     @RequestMapping("/pub/auth-pwd")
-    public UserInfoEntity login(@RequestBody @Validated UserAuthVO userAuth) {
+    public UserInfoVO login(@RequestBody @Validated UserAuthVO userAuth) {
         UserInfoVO userInfoVO = userAuthService.userAuthByPasswd(getLocalTenant().getTenantId(), userAuth);
-        return null;
+        return userInfoVO;
     }
 
     /**
@@ -40,9 +40,8 @@ public class UserAuthController extends AbstractController {
      * @param userInfo
      * @return
      */
-    @RequestMapping("/pub/logout")
+    @RequestMapping("/pri/logout")
     public String logout(Long tenantId, UserInfoEntity userInfo) {
-
 
         return "ok";
     }

@@ -1,11 +1,11 @@
 package com.matcha.mall.common.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.matcha.mall.common.entity.SysTenantEntity;
+import com.matcha.mall.common.dto.SysTenantEntityDto;
 import com.matcha.mall.common.utils.SysTenantUtils;
 import com.matcha.mall.common.api.CommonResult;
 import com.matcha.mall.common.api.ResultCode;
-import com.matcha.mall.common.service.SysTenantService;
+import com.matcha.mall.common.service.SysTenantRemoteService;
 import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.*;
@@ -23,10 +23,10 @@ public class SysReqTenantFilter implements Filter {
 
     private final static String SYS_TENANT = "tenantId";
 
-    private SysTenantService sysTenantService;
+    private SysTenantRemoteService sysTenantRemoteService;
 
-    public SysReqTenantFilter(SysTenantService sysTenantService) {
-        this.sysTenantService = sysTenantService;
+    public SysReqTenantFilter(SysTenantRemoteService sysTenantRemoteService) {
+        this.sysTenantRemoteService = sysTenantRemoteService;
     }
 
     private Long getRequestTenant(HttpServletRequest httpRequest) {
@@ -71,7 +71,7 @@ public class SysReqTenantFilter implements Filter {
             writeJson(res, json);
             return;
         }
-        SysTenantEntity sysTenantInfo = sysTenantService.findSysTenantByTenantId(tenantId);
+        SysTenantEntityDto sysTenantInfo = sysTenantRemoteService.findSysTenantByTenantId(tenantId);
         if (sysTenantInfo == null) {
             CommonResult<String> commonResult = CommonResult.failed(ResultCode.INVALID_TENANT);
             ObjectMapper objectMapper = new ObjectMapper();
